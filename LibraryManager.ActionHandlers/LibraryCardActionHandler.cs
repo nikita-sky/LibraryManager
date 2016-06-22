@@ -22,7 +22,9 @@ namespace LibraryManager.ActionHandlers
             var query = Repository.Query().Where(x => x.ClientFullName.StartsWith(fullName));
             var total = query.LongCount();
 
-            query = query.Skip(toSkip).Take(PageSize);
+            query = query.OrderBy(x => x.ClientFullName)
+                .Skip(toSkip)
+                .Take(PageSize);
 
             return QueryResult<LibraryCard>.Success(query.ToArray(), total);
         }

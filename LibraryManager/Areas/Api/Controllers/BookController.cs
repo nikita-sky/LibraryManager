@@ -16,7 +16,7 @@ namespace LibraryManager.Areas.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(int page)
+        public ActionResult Index(int page = 1)
             => _actionHandler.Get(page).ToJsonResult();
 
         [HttpPut]

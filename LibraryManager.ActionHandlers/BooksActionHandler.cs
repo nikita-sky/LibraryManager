@@ -26,7 +26,10 @@ namespace LibraryManager.ActionHandlers
 
             var total = query.LongCount();
 
-            query = query.Skip(toSkip).Take(PageSize);
+            query = query.OrderBy(x => x.Title)
+                .Skip(toSkip)
+                .Take(PageSize);
+
             return QueryResult<Book>.Success(query.ToArray(), total);
         }
 

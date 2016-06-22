@@ -13,6 +13,7 @@ namespace LibraryManager.Data.EF.DatabaseContext
             : base("LibraryManagerDb")
         {
             Configuration.AutoDetectChangesEnabled = false;
+            var ensureDllIsCopied = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
         }
     }
 }

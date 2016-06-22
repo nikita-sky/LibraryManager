@@ -47,8 +47,12 @@ namespace LibraryManager.ActionHandlers
                             x => x.ReturnAt <= form.ReturnAt.Value && x.ReturnAt >= form.ReturnAt.Value.AddDays(-1));
             }
 
+            query = query.OrderBy(x => x.TakedAt);
+
             var total = query.LongCount();
-            var result = query.Skip((form.Page - 1)*PageSize).Take(PageSize).ToArray();
+            var result = query
+                .Skip((form.Page - 1)*PageSize)
+                .Take(PageSize).ToArray();
 
             return QueryResult<ClientEntry>.Success(result, total);
         }

@@ -19,13 +19,14 @@ namespace LibraryManager.ActionHandlers.Common
             Mapper = mapper;
         }
 
-        public QueryResult<T> Get(int page)
+        public virtual QueryResult<T> Get(int page)
         {
             try
             {
                 page = Math.Max(1, page);
                 var toSkip = (page - 1) * PageSize;
                 var items = Repository.Query()
+                    .OrderBy(x => x.Id)
                     .Skip(toSkip)
                     .Take(PageSize)
                     .ToArray();
