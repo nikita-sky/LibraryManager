@@ -1,0 +1,29 @@
+﻿<div class="app-body" layout="row">
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-is-locked-open="$mdMedia('gt-ms')" md-component-id="left">
+        <md-toolbar>
+            <h1 class="md-toolbar-tools">Меню</h1>
+        </md-toolbar>
+        <md-list flex>
+            <md-list-item ng-href="#/library-card">Читательские билеты</md-list-item>
+            <md-list-item ng-href="#/book">Книги</md-list-item>
+            <md-list-item ng-href="#/client-entry">Реестр</md-list-item>
+        </md-list>
+    </md-sidenav>
+    <div layout="column" role="main" flex>
+        <md-toolbar class="md-whiteframe-glow-z1">
+            <div class="md-toolbar-tools">
+                <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.openMenu('left')" hide-gt-sm>
+                    <i class="material-icons">&#xE5D2;</i>
+                </button>
+                <div layout="row" flex>
+                    <h2>Library Manager <i class="material-icons">&#xE5CC;</i> <span ng-bind="vm.title"></span></h2>
+                </div>
+            </div>
+        </md-toolbar>
+        <md-content md-scroll-y>
+            <div layout="column" layout-align="start center">
+                <div ng-view layout-padding class="container"></div>
+            </div>
+        </md-content>
+    </div>
+</div>
