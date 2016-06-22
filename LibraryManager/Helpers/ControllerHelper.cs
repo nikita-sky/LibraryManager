@@ -9,7 +9,7 @@ namespace LibraryManager.Helpers
         public static ActionResult Json(this Controller controller, object data, HttpStatusCode code = HttpStatusCode.OK)
             => new JsonCamelCaseResult(data)
             {
-                StatusStatusCode = code
+                StatusCode = code
             };
     }
 }
