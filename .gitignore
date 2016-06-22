@@ -1,0 +1,9 @@
+Db/
+LibraryManager.ActionHandlers/obj/
+LibraryManager.Data.EF/bin/
+LibraryManager.Data.EF/obj/
+LibraryManager.Data.Model/obj/
+LibraryManager.Shared/obj/
+LibraryManager/bin/
+LibraryManager/obj/
+packages/
