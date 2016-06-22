@@ -112,7 +112,10 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
+    <Compile Include="Areas\Api\Controllers\ApiController.cs" />
     <Compile Include="Areas\Api\Controllers\BookController.cs" />
+    <Compile Include="Areas\Api\Controllers\ClientEntryController.cs" />
+    <Compile Include="Areas\Api\Controllers\LibraryCardController.cs" />
     <Compile Include="ControllerResults\HandledActionresultCodeHelper.cs" />
     <Compile Include="ControllerResults\JsonCamelCaseResult.cs" />
     <Compile Include="ControllerResults\JsonQueryResult.cs" />

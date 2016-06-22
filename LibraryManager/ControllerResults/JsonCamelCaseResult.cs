@@ -14,7 +14,8 @@ namespace LibraryManager.ControllerResults
 
         private static readonly JsonSerializerSettings JsonSerializerSettings = new JsonSerializerSettings
         {
-            ContractResolver = new CamelCasePropertyNamesContractResolver()
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            NullValueHandling = NullValueHandling.Ignore
         };
 
         public JsonCamelCaseResult(HttpStatusCode statusCode)

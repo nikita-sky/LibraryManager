@@ -5,28 +5,28 @@ using LibraryManager.ControllerResults;
 
 namespace LibraryManager.Areas.Api.Controllers
 {
-    
-    public class BookController: ApiController
+    public class ClientEntryController: ApiController
     {
-        private readonly BooksActionHandler _actionHandler;
+        private readonly ClientEntryActionHandler _actionHandler;
 
-        public BookController(BooksActionHandler actionHandler)
+        public ClientEntryController(ClientEntryActionHandler actionHandler)
         {
             _actionHandler = actionHandler;
         }
 
         [HttpGet]
-        public ActionResult Index(int page)
+        [ActionName(ACTION_INDEX)]
+        public ActionResult Get(int page = 1)
             => _actionHandler.Get(page).ToJsonResult();
 
         [HttpPut]
         [ActionName(ACTION_INDEX)]
-        public ActionResult Create(CreateBookForm form)
+        public ActionResult Create(CreateClientEntryForm form)
             => _actionHandler.Create(form).ToJsonResult();
 
         [HttpPost]
         [ActionName(ACTION_INDEX)]
-        public ActionResult Update(UpdateBookForm form)
+        public ActionResult Update(UpdateClientEntryForm form)
             => _actionHandler.Update(form).ToHttpResult();
 
         [HttpDelete]
@@ -35,7 +35,7 @@ namespace LibraryManager.Areas.Api.Controllers
             => _actionHandler.Delete(id).ToJsonResult();
 
         [HttpGet]
-        public ActionResult Find(string title, int page)
-            => _actionHandler.Find(title, page).ToJsonResult();
+        public ActionResult Find(FindClientEntryForm form)
+            => _actionHandler.Find(form).ToJsonResult();
     }
 }

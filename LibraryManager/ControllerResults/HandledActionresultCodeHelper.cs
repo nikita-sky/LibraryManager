@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using System.Web.Mvc;
 using LibraryManager.ActionHandlers.Common;
 
 namespace LibraryManager.ControllerResults
@@ -18,5 +19,8 @@ namespace LibraryManager.ControllerResults
 
         public static HttpStatusCode ToHttpStatusCode(this HandledActionResultCode code)
             => _resultToHttpCode[code];
+
+        public static HttpStatusCodeResult ToHttpResult(this HandledActionResult actionResult)
+            => new HttpStatusCodeResult(actionResult.Code.ToHttpStatusCode());
     }
 }

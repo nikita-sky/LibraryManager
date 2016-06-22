@@ -15,7 +15,7 @@ namespace LibraryManager.Filters
 
             context.Result = new JsonCamelCaseResult(modelState.Keys.ToArray())
             {
-                StatusStatusCode = HttpStatusCode.BadRequest
+                StatusCode = HttpStatusCode.BadRequest
             };
         }
     }
