@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "outFile": "./bin/app.js",
+        "removeComments": true,
+        "target": "es5"
+    }
+}
