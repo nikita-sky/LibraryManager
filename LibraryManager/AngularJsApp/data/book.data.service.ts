@@ -1,7 +1,9 @@
+/// <reference path="./data.service.ts"/>
+
 module LM
 {
     export class BookDataService extends DataService<Book> {
-        public static $inject = ["$http"];
+        static $inject = ["$http"];
 
         constructor ($http: angular.IHttpService) {
             super($http);
@@ -9,7 +11,7 @@ module LM
         }
 
         find(title: string, page: number): angular.IPromise<IQueryResult<Book>> {
-            var config: angular.IRequestShortcutConfig = {
+            const config: angular.IRequestShortcutConfig = {
                 params: { title: title, page: page }
             };
             return this.$http.get(this.url + "/find", config);

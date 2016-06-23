@@ -11,7 +11,7 @@ module LM
         }
 
         get<T>(page: number = 1): angular.IPromise<IQueryResult<T>> {
-            var requestConfig: angular.IRequestShortcutConfig = {
+            const requestConfig: angular.IRequestShortcutConfig = {
                 params: { page: page }
             };
             return this.$http.get(this.url, requestConfig)

@@ -1,9 +1,9 @@
 module LM
 {
     export class RootPage {
-        public static $inject = ["$document", "$mdSidenav", "$mdToast", "$timeout"];
-        public static $name = "rootPage";
-        public static factory(): angular.IComponentOptions {
+        static $inject = ["$document", "$mdSidenav", "$mdToast", "$timeout"];
+        static $name = "rootPage";
+        static factory(): angular.IComponentOptions {
             return {
                 controllerAs: "vm",
                 controller: RootPage,
@@ -39,14 +39,14 @@ module LM
         showBusyIndicator(message: string = null) {
             this._isBusy = true;
             message = message || "Загрузка...";
-            var toast: angular.material.IToastOptions = {
+            const toast: angular.material.IToastOptions = {
                 hideDelay: 0,
                 template: [
                     '<md-toast>',
                         '<md-progress-circular class="md-warn" md-diameter="40">',
                         '</md-progress-circular>',
                         '<span class="md-toast-text">',
-                            message,
+                        message,
                         '</span>',
                     '</md-toast>'
                 ].join(""),
@@ -57,7 +57,7 @@ module LM
 
         notify(message: string): angular.IPromise<any> {
             if (!message || !message.length)
-                return;
+                return null;
 
             this.isBusy = false;
             return this.$mdToast.showSimple(message);
@@ -74,5 +74,9 @@ module LM
             this.$timeout(() => this.$mdToast.hide(this._indicator), 150);
             this._indicator = null;
         }
+    }
+
+    export function registerRootPage(module: angular.IModule) {
+        module.component(RootPage.$name, RootPage.factory());
     }
 }
