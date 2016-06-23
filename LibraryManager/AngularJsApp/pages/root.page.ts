@@ -15,16 +15,23 @@ module LM
             private $document: angular.IDocumentService,
             private $mdSidenav: angular.material.ISidenavService,
             private $mdToast: angular.material.IToastService,
-            private $timeout: angular.ITimeoutService)
-        { }
+            private $timeout: angular.ITimeoutService) {
+            this.title = "Library Card";
+        }
+
+        get sidenavId() { return "left" }
 
         private _title: string;
-        private _isBusy: boolean = false;
+        private _isBusy = false;
         private _indicator: angular.IPromise<any>;
 
         set title(value: string) {
             this._title = value;
-            this.$document.title = "Library Manager - " + this._title;
+            this.$document.title = `Library Manager - ${this._title}`;
+        }
+
+        get title() {
+            return this._title;
         }
 
         set isBusy(value: boolean) {
@@ -39,17 +46,19 @@ module LM
         showBusyIndicator(message: string = null) {
             this._isBusy = true;
             message = message || "Загрузка...";
+            const template = `<md-toast><md-progress-circual class="md-warn" md-diameter="40"></md-progress-circual><span class="md-toast-text">${message}</span></md-toast>`;
             const toast: angular.material.IToastOptions = {
                 hideDelay: 0,
-                template: [
-                    '<md-toast>',
-                        '<md-progress-circular class="md-warn" md-diameter="40">',
-                        '</md-progress-circular>',
-                        '<span class="md-toast-text">',
-                        message,
-                        '</span>',
-                    '</md-toast>'
-                ].join(""),
+                template: template,
+                //template: [
+                //    '<md-toast>',
+                //        '<md-progress-circular class="md-warn" md-diameter="40">',
+                //        '</md-progress-circular>',
+                //        '<span class="md-toast-text">',
+                //        message,
+                //        '</span>',
+                //    '</md-toast>'
+                //].join(""),
                 position: "bottom left"
             };
             this._indicator = this.$mdToast.show(toast);
@@ -63,8 +72,8 @@ module LM
             return this.$mdToast.showSimple(message);
         }
 
-        openMenu(sidenavId: string) {
-            this.$mdSidenav(sidenavId).open();
+        openMenu() {
+            this.$mdSidenav("left").open();
         }
 
         private hideIndicator() {
@@ -74,9 +83,5 @@ module LM
             this.$timeout(() => this.$mdToast.hide(this._indicator), 150);
             this._indicator = null;
         }
-    }
-
-    export function registerRootPage(module: angular.IModule) {
-        module.component(RootPage.$name, RootPage.factory());
     }
 }

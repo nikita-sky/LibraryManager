@@ -142,6 +142,7 @@
     <Content Include="AngularJsApp\typings\globals\angular-material\typings.json" />
     <Content Include="AngularJsApp\typings\globals\angular\typings.json" />
     <Content Include="AngularJsApp\typings\globals\jquery\typings.json" />
+    <Content Include="Content\css\main.css" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -151,7 +152,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\css\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
