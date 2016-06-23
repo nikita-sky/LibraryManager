@@ -10,3 +10,4 @@ packages/
 LibraryManager.ActionHandlers/bin/Debug/AutoMapper.xml
 LibraryManager.ActionHandlers/bin/
 LibraryManager.Shared/bin/
+LibraryManager/Content/js/app.js
