@@ -108,6 +108,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\md-data-table.min.css" />
+    <Content Include="Content\html\components\table.toolbar.html" />
+    <Content Include="Content\html\pages\book.html" />
     <Content Include="Content\html\pages\root.html" />
     <Content Include="Content\js\app.js" />
     <Content Include="Content\js\md-data-table.min.js" />
@@ -174,13 +177,18 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="AngularJsApp\app.ts" />
+    <TypeScriptCompile Include="AngularJsApp\components\table.toolbar.ts" />
     <TypeScriptCompile Include="AngularJsApp\data\book.data.service.ts" />
     <TypeScriptCompile Include="AngularJsApp\data\data.service.ts" />
+    <TypeScriptCompile Include="AngularJsApp\data\data.source.ts" />
     <TypeScriptCompile Include="AngularJsApp\data\model\book.ts" />
+    <TypeScriptCompile Include="AngularJsApp\data\model\client.entry.ts" />
+    <TypeScriptCompile Include="AngularJsApp\data\model\entity.ts" />
+    <TypeScriptCompile Include="AngularJsApp\data\model\library.card.ts" />
     <TypeScriptCompile Include="AngularJsApp\data\query.result.ts" />
     <TypeScriptCompile Include="AngularJsApp\data\query.ts" />
-    <TypeScriptCompile Include="AngularJsApp\data\table.data.source.ts" />
     <TypeScriptCompile Include="AngularJsApp\pages\books.page.ts" />
+    <TypeScriptCompile Include="AngularJsApp\pages\page.base.ts" />
     <TypeScriptCompile Include="AngularJsApp\pages\root.page.ts" />
     <TypeScriptCompile Include="AngularJsApp\typings\globals\angular-material\index.d.ts" />
     <TypeScriptCompile Include="AngularJsApp\typings\globals\angular\index.d.ts" />

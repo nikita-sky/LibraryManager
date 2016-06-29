@@ -1,3 +1,5 @@
+/// <reference path="query.result.ts"/>
+
 module LM
 {
     export abstract class DataService<T> {
@@ -5,12 +7,12 @@ module LM
 
         protected url: string;
 
-        update<T>(data: T): angular.IPromise<number> {
+        update(data: T): angular.IPromise<number> {
             return this.$http.post(this.url, data)
                 .then(x => x.status);
         }
 
-        get<T>(page: number = 1): angular.IPromise<IQueryResult<T>> {
+        get(page: number = 1): angular.IPromise<IQueryResult<T>> {
             const requestConfig: angular.IRequestShortcutConfig = {
                 params: { page: page }
             };
@@ -18,7 +20,7 @@ module LM
                 .then(x => x.data);
         }
 
-        create<T>(data: T): angular.IPromise<IQueryResult<T>> {
+        create(data: T): angular.IPromise<IQueryResult<T>> {
             return this.$http.put(this.url, data)
                 .then(x => x.data);
         }

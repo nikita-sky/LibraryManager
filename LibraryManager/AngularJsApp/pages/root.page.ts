@@ -46,7 +46,7 @@ module LM
         showBusyIndicator(message: string = null) {
             this._isBusy = true;
             message = message || "Загрузка...";
-            const template = `<md-toast><md-progress-circual class="md-warn" md-diameter="40"></md-progress-circual><span class="md-toast-text">${message}</span></md-toast>`;
+            const template = `<md-toast><md-progress-circular class="md-warn" md-mode="indeterminate" md-diameter="30"></md-progress-circular><span class="md-toast-text">${message}</span></md-toast>`;
             const toast: angular.material.IToastOptions = {
                 hideDelay: 0,
                 template: template,

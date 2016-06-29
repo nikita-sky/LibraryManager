@@ -10,8 +10,13 @@
     padding-left: 40px;
     padding-right: 40px;
     padding-top: 5px;
+    overflow: hidden;
 }
 
 .full-height {
     height: 100%
+}
+
+md-toolbar {
+    transition: none !important;
 }

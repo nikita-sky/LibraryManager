@@ -1,0 +1,48 @@
+﻿<!--<md-toolbar ng-class="{ 'md-default': !vm.isSelectMode, 'alternative': vm.isSelectedMode }">-->
+<div flex ng-switch="vm.currentMode">
+    <md-toolbar ng-switch-when="default" class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <span>{{::vm.title}}</span>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.create()">
+                <md-tooltip>Добавить запись</md-tooltip>
+                <i class="material-icons">&#xE146;</i>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="vm.search()">
+                <md-tooltip>Поиск</md-tooltip>
+                <i class="material-icons">&#xE8B6;</i>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="vm.refresh()">
+                <md-tooltip>Обновить</md-tooltip>
+                <i class="material-icons">&#xE5D5;</i>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-toolbar ng-switch-when="selection" class="md-table-toolbar alternative">
+        <div class="md-toolbar-tools">
+            <span>Выбрано: {{vm.selectedCount}}</span>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-enabled="vm.selectedCount === 1" ng-click="vm.edit()">
+                <md-tooltip>Изменить запись</md-tooltip>
+                <i class="material-icons"><i class="material-icons">&#xE254;</i></i>
+            </md-button>
+            <md-button class="md-icon-button" ng-show="vm.isSelectMode" ng-click="vm.delete()">
+                <md-tooltip>Удалить запись</md-tooltip>
+                <i class="material-icons">&#xE872;</i>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-toolbar ng-switch-when="search" class="md-table-toolbar alternative">
+        <div class="md-toolbar-tools">
+            <span>Результат поиска</span>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.clearSearch()">
+                <md-tooltip>Закрыть результат поиска</md-tooltip>
+                <i class="material-icons">&#xE5CD;</i>
+            </md-button>
+        </div>
+    </md-toolbar>
+</div>
+<!--</md-toolbar>-->
