@@ -38,12 +38,17 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="LightInject, Version=4.0.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.4.0.10\lib\net45\LightInject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookRepository.cs" />
+    <Compile Include="Bootsrapper.cs" />
     <Compile Include="ClientEntryRepository.cs" />
     <Compile Include="LibraryCardRepository.cs" />
     <Compile Include="DatabaseContext\LibraryManagerContext.cs" />
@@ -60,6 +65,10 @@
     <ProjectReference Include="..\LibraryManager.Data.Model\LibraryManager.Data.Model.csproj">
       <Project>{a41ac581-198b-47b5-8136-0ccd4693f208}</Project>
       <Name>LibraryManager.Data.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibraryManager.Shared\LibraryManager.Shared.csproj">
+      <Project>{D0D02E31-450A-4DE1-8890-B24752341271}</Project>
+      <Name>LibraryManager.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Linq;
+using LibraryManager.Data.EF.DatabaseContext;
 using LibraryManager.Data.Model.Entity;
 
 namespace LibraryManager.Data.EF
@@ -16,6 +17,10 @@ namespace LibraryManager.Data.EF
                 .Include(x => x.Book.Id)
                 .Include(x => x.LibraryCard.ClientFullName)
                 .Include(x => x.LibraryCardId);
+        }
+
+        public ClientEntryRepository(LibraryManagerContext context) : base(context)
+        {
         }
     }
 }

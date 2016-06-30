@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using LibraryManager.Data.EF.DatabaseContext;
 using LibraryManager.Data.Model.Entity;
 
 namespace LibraryManager.Data.EF
@@ -7,5 +8,9 @@ namespace LibraryManager.Data.EF
     {
         protected override DbSet<Book> DbSet
             => Context.Books;
+
+        public BookRepository(LibraryManagerContext context) : base(context)
+        {
+        }
     }
 }

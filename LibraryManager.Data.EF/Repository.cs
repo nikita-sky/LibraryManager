@@ -9,11 +9,16 @@ namespace LibraryManager.Data.EF
 {
     public abstract class Repository<T>: IRepository<T> where T: EntityBase, new()
     {
-        protected LibraryManagerContext Context { get; } = new LibraryManagerContext();
+        protected LibraryManagerContext Context { get; private set; }
         protected abstract DbSet<T> DbSet { get; }
 
         protected DbEntityEntry<T> Entry(T entity)
             => Context.Entry(entity);
+
+        protected Repository(LibraryManagerContext context)
+        {
+            Context = context;
+        }
 
         public virtual IQueryable<T> Query()
             => DbSet;
