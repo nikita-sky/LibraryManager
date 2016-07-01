@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace LibraryManager.Shared.IoC
@@ -8,6 +9,7 @@ namespace LibraryManager.Shared.IoC
         void RegisterInstance<TServcie>(TServcie instance);
         void RegisterPerRequest<TService, TImpl>() where TImpl : TService;
         void RegisterPerRequest<TService>();
+        void RegisterPerRequest(Type servcieType);
         void RegisterSingleton<TService, TImpl>() where TImpl : TService;
         void RegisterSingleton<TServcie>();
 

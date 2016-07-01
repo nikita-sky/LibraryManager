@@ -15,7 +15,7 @@ namespace LibraryManager.Data.EF
             return DbSet
                 .Include(x => x.Book.Title)
                 .Include(x => x.Book.Id)
-                .Include(x => x.LibraryCard.ClientFullName)
+                .Include(x => x.LibraryCard.FullName)
                 .Include(x => x.LibraryCardId);
         }
 

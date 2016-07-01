@@ -19,10 +19,10 @@ namespace LibraryManager.ActionHandlers
             page = Math.Max(1, page);
             var toSkip = (page - 1)*PageSize;
 
-            var query = Repository.Query().Where(x => x.ClientFullName.StartsWith(fullName));
+            var query = Repository.Query().Where(x => x.FullName.StartsWith(fullName));
             var total = query.LongCount();
 
-            query = query.OrderBy(x => x.ClientFullName)
+            query = query.OrderBy(x => x.FullName)
                 .Skip(toSkip)
                 .Take(PageSize);
 

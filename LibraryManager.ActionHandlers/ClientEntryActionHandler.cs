@@ -31,7 +31,7 @@ namespace LibraryManager.ActionHandlers
                 query = query.Where(x => x.Book.Title.Contains(form.BookTitle));
 
             if (!string.IsNullOrWhiteSpace(form.ClientFullName))
-                query = query.Where(x => x.LibraryCard.ClientFullName.StartsWith(form.ClientFullName));
+                query = query.Where(x => x.LibraryCard.FullName.StartsWith(form.ClientFullName));
 
             if (form.TakedAt != null && form.ReturnAt != null)
                 query = query.Where(x => x.TakedAt >= form.TakedAt.Value && x.ReturnAt <= form.ReturnAt.Value);

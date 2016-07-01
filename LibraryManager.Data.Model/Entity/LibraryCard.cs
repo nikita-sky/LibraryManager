@@ -2,7 +2,7 @@
 {
     public class LibraryCard: EntityBase
     {
-        public string ClientFullName { get; set; }
+        public string FullName { get; set; }
         public string Phone { get; set; }
         
     }

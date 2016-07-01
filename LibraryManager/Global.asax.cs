@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using System.Linq;
+using System.Reflection;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using LibraryManager.ActionHandlers.Common;
@@ -22,9 +24,17 @@ namespace LibraryManager
             container.RegisterPerRequest<Bootsrapper>();
 
             container.GetAllInstances<IBootsrapper>().ForEach(b => b.Execute(container));
-
-            container.RegisterControllers();
+            RegisterControllers(container);
             container.EnableMvc();
+        }
+
+        private static void RegisterControllers(IServiceContainer container)
+        {
+            var types = Assembly.GetCallingAssembly()
+                .GetTypes()
+                .Where(t => !t.IsAbstract && typeof(IController).IsAssignableFrom(t))
+                .ToArray();
+            types.ForEach(container.RegisterPerRequest);
         }
     }
 }

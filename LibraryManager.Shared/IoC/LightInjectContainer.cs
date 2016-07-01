@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using LightInject;
 
@@ -7,9 +9,6 @@ namespace LibraryManager.Shared.IoC
     public class LightInjectContainer: ServiceContainer, IServiceContainer
     {
         private readonly LightInject.ServiceContainer _container = new LightInject.ServiceContainer();
-
-        public override void RegisterControllers()
-            => _container.RegisterControllers();
 
         public override void EnableMvc()
             => _container.EnableMvc();
@@ -22,6 +21,8 @@ namespace LibraryManager.Shared.IoC
 
         public void RegisterPerRequest<TServcie>()
             => _container.Register<TServcie>(PerRequestLifeTime);
+
+        public void RegisterPerRequest(Type servcieType) => _container.Register(servcieType, PerRequestLifeTime);
 
         public void RegisterSingleton<TService, TImpl>() where TImpl : TService
             => _container.Register<TService, TImpl>();
