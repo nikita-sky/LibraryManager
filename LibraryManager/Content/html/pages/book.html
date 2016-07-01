@@ -43,7 +43,7 @@
                 <form layout="column" name="vm.formSearch" ng-submit="vm.doSearch()">
                     <md-input-container class="md-block">
                         <label>Название</label>
-                        <input md-maxlength="255" required name="title" type="text" ng-model="vm.searchString" />
+                        <input md-maxlength="255" required name="value" type="text" ng-model="vm.searchString" />
                         <div ng-messages="formSearch.value.$error">
                             <div ng-message="required">Обязательное поле</div>
                             <div ng-message="md-maxlength">Максимальная длина 255 символов</div>
