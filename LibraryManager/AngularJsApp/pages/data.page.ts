@@ -1,11 +1,12 @@
+/// <reference path="./page.base.ts" />
+
+
 module LM {
     const SIDENAV_EDIT = "edit";
     const SIDENAV_SEARCH = "search";
 
     export abstract class DataPage<TModel extends Entity, TQuery, TDataService extends DataService<TModel>> extends Page {
-        constructor(
-            $mdSidenav: angular.material.ISidenavService
-        ) {
+        constructor($mdSidenav: angular.material.ISidenavService) {
             super($mdSidenav);
          }
 
@@ -24,8 +25,8 @@ module LM {
         }
 
         edit(item: TModel) {
+            this.editableItem = angular.extend({}, item);
             this.formEdit.$setPristine();
-            this.editableItem = item;
             this.openSidenav(SIDENAV_EDIT);
         }
 
@@ -63,6 +64,13 @@ module LM {
 
         endSearch() {
             this.closeSidenav(SIDENAV_SEARCH);
+        }
+
+        onDelete(promise: angular.IPromise<any>) {
+            this.rootPage.showBusyIndicator("Удаление...");
+            promise
+                .catch(() => this.notify("Ошибка при удалении"))
+                .finally(() => this.rootPage.isBusy = false);
         }
     }
 }

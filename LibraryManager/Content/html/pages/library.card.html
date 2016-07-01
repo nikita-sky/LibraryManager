@@ -8,7 +8,7 @@
                 <md-input-container class="md-block">
                     <label>ФИО</label>
                     <input md-maxlength="255" required name="fullName" type="text" ng-model="vm.editableItem.fullName" />
-                    <div ng-messages="formEdit.fullName.$error">
+                    <div ng-messages="vm.formEdit.fullName.$error">
                         <div ng-message="required">Обязательное поле</div>
                         <div ng-message="md-maxlength">Максимальная длина 255 символов</div>
                     </div>
@@ -16,7 +16,7 @@
                 <md-input-container class="md-block">
                     <label>Телефон</label>
                     <input md-maxlength="255" required name="phone" type="text" ng-model="vm.editableItem.phone" />
-                    <div ng-messages="formEdit.phone.$error">
+                    <div ng-messages="vm.formEdit.phone.$error">
                         <div ng-message="required">Обязательное поле</div>
                         <div ng-message="md-maxlength">Максимальная длина 255 символов</div>
                     </div>
@@ -49,7 +49,11 @@
 
     <md-card flex>
         <md-content layout="column">
-            <table-toolbar ng-data-source="vm.dataSource" title="Читательские билеты" on-search="vm.search()" on-create="vm.create()" on-edit="vm.edit($item)"></table-toolbar>
+            <table-toolbar ng-data-source="vm.dataSource" title="Читательские билеты"
+                           on-search="vm.search()"
+                           on-create="vm.create()"
+                           on-edit="vm.edit($item)"
+                           on-delete="vm.onDelete($promise)"></table-toolbar>
             <!-- table -->
             <md-table-container>
                 <table md-table md-row-select ng-model="vm.dataSource.selected" md-progress="vm.dataSource.promise">
@@ -61,8 +65,8 @@
                         </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row md-select="item" md-select-id="id" ng-repeat="item in vm.dataSource.items">
-                            <td md-cell>{{item.id}}</td>
+                        <tr md-row md-select="item" md-select-id="id" ng-repeat="item in vm.dataSource.items track by item.id">
+                            <td md-cell>{{::item.id}}</td>
                             <td md-cell>{{item.fullName}}</td>
                             <td md-cell>{{item.phone}}</td>
                         </tr>

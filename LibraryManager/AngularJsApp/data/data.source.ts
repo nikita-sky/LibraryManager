@@ -54,7 +54,8 @@ module LM {
         }
 
         update(item: TData): angular.IPromise<any> {
-            return this.$dataService.update(item);
+            return this.$dataService.update(item)
+                .then(() => this.load());
         }
         
         delete(item: TData): angular.IPromise<void> {
@@ -69,14 +70,15 @@ module LM {
 
         private removeItem(item: TData) {
             var i = this.items.indexOf(item);
-            if (!i)
+            if (i < 0)
                 return;
             this.items.splice(i, 1);
         }
 
         private onLoadComplete(queryResult: IQueryResult<TData>) {
             this._total = queryResult.total;
-            this.items = queryResult.items;
+            angular.extend(this.items, queryResult.items);
+            //this.items = queryResult.items;
         }
     }
 }

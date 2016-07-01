@@ -18,7 +18,8 @@ module LM {
                     ngDataSource: "<",
                     onSearch: "&",
                     onCreate: "&",
-                    onEdit: "&"
+                    onEdit: "&",
+                    onDelete: "&?",
                 }
             }
         }
@@ -26,6 +27,7 @@ module LM {
         onSearch: () => void;
         onCreate: () => void;
         onEdit: (item: any) => void;
+        onDelete: ( data: { $promise: angular.IPromise<any> }) => void;
 
         ngDataSource: DataSource<any, any, any>;
 
@@ -68,10 +70,14 @@ module LM {
         }
 
         delete() {
-            if (!!this.selectedCount)
+            if (!this.selectedCount)
                 return;
-            this.ngDataSource.delete(this.ngDataSource.selected[0])
+            const promise = this.ngDataSource.delete(this.ngDataSource.selected[0])
                 .then(() => this.ngDataSource.selected = []);
+
+            if (!this.onDelete)
+                return;
+            this.onDelete( { $promise: promise } );
         }
     }
 }

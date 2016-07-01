@@ -8,7 +8,7 @@
                     <md-input-container class="md-block">
                         <label>Название</label>
                         <input md-maxlength="255" required name="title" type="text" ng-model="vm.editableItem.title"/>
-                        <div ng-messages="formEdit.title.$error">
+                        <div ng-messages="vm.formEdit.title.$error">
                             <div ng-message="required">Обязательное поле</div>
                             <div ng-message="md-maxlength">Максимальная длина 255 символов</div>
                         </div>
@@ -16,7 +16,7 @@
                     <md-input-container class="md-block">
                         <label>Автор</label>
                         <input md-maxlength="255" required name="author" type="text" ng-model="vm.editableItem.author"/>
-                        <div ng-messages="formEdit.author.$error">
+                        <div ng-messages="vm.formEdit.author.$error">
                             <div ng-message="required">Обязательное поле</div>
                             <div ng-message="md-maxlength">Максимальная длина 255 символов</div>
                         </div>
@@ -24,7 +24,7 @@
                     <md-input-container class="md-block">
                         <label>ISBN</label>
                         <input ng-pattern="/^(97(8|9))?\d{9}(\d|X)$/" required type="text" name="isbn" ng-model="vm.editableItem.isbn"/>
-                        <div ng-messages="formEdit.isbn.$error">
+                        <div ng-messages="vm.formEdit.isbn.$error">
                             <div ng-message="required">Обязательное поле</div>
                             <div ng-message="pattern">Указан неправильный номер ISBN</div>
                         </div>
@@ -43,8 +43,8 @@
                 <form layout="column" name="vm.formSearch" ng-submit="vm.doSearch()">
                     <md-input-container class="md-block">
                         <label>Название</label>
-                        <input md-maxlength="255" required name="value" type="text" ng-model="vm.searchString" />
-                        <div ng-messages="formSearch.value.$error">
+                        <input md-maxlength="255" required name="value" type="text" ng-model="vm.query" />
+                        <div ng-messages="vm.formSearch.value.$error">
                             <div ng-message="required">Обязательное поле</div>
                             <div ng-message="md-maxlength">Максимальная длина 255 символов</div>
                         </div>
@@ -57,7 +57,11 @@
 
         <md-card flex>
             <md-content layout="column">
-                <table-toolbar ng-data-source="vm.dataSource" title="Книги" on-search="vm.search()" on-create="vm.create()" on-edit="vm.edit($item)"></table-toolbar>
+                <table-toolbar ng-data-source="vm.dataSource" title="Книги" 
+                               on-search="vm.search()"
+                               on-create="vm.create()"
+                               on-edit="vm.edit($item)"
+                               on-delete="vm.onDelete($promise)"></table-toolbar>
                 <!-- table -->
                 <md-table-container>
                     <table md-table md-row-select ng-model="vm.dataSource.selected" md-progress="vm.dataSource.promise">
@@ -70,8 +74,8 @@
                             </tr>
                         </thead>
                         <tbody md-body>
-                            <tr md-row md-select="item" md-select-id="id" ng-repeat="item in vm.dataSource.items">
-                                <td md-cell>{{item.id}}</td>
+                            <tr md-row md-select="item" md-auto-select md-select-id="id" ng-repeat="item in vm.dataSource.items track by item.id">
+                                <td md-cell>{{::item.id}}</td>
                                 <td md-cell>{{item.title}}</td>
                                 <td md-cell>{{item.author}}</td>
                                 <td md-cell>{{item.isbn}}</td>

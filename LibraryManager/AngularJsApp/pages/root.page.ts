@@ -16,23 +16,12 @@ module LM
             private $mdSidenav: angular.material.ISidenavService,
             private $mdToast: angular.material.IToastService,
             private $timeout: angular.ITimeoutService) {
-            this.title = "Library Card";
         }
 
         get sidenavId() { return "left" }
 
-        private _title: string;
         private _isBusy = false;
         private _indicator: angular.IPromise<any>;
-
-        set title(value: string) {
-            this._title = value;
-            this.$document.title = `Library Manager - ${this._title}`;
-        }
-
-        get title() {
-            return this._title;
-        }
 
         set isBusy(value: boolean) {
             if (this._isBusy === value)
