@@ -7,6 +7,8 @@ namespace LibraryManager.Areas.Api
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.Routes.LowercaseUrls = true;
+            context.MapRoute("ApiDelete", "Api/{controller}/{id}", new {action = "Index"});
+
             context.MapRoute(
                 "ApiDefault",
                 "Api/{controller}/{action}/{id}",
