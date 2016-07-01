@@ -1,6 +1,8 @@
 ﻿using LibraryManager.Data.EF.DatabaseContext;
+using LibraryManager.Data.Model;
+using LibraryManager.Data.Model.Entity;
 using LibraryManager.Shared;
-using LightInject;
+using LibraryManager.Shared.IoC;
 
 namespace LibraryManager.Data.EF
 {
@@ -8,7 +10,11 @@ namespace LibraryManager.Data.EF
     {
         public void Execute(IServiceContainer container)
         {
-            container.Register<LibraryManagerContext>();
+            container.RegisterSingleton<LibraryManagerContext>();
+
+            container.RegisterPerRequest<IRepository<Book>, BookRepository>();
+            container.RegisterPerRequest<IRepository<LibraryCard>, LibraryCardRepository>();
+            container.RegisterPerRequest<IRepository<ClientEntry>, ClientEntryRepository>();
         }
     }
 }

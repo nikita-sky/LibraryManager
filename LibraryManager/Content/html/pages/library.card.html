@@ -1,0 +1,75 @@
+﻿<div layout="row">
+    <md-sidenav class="md-sidenav-right" md-component-id="edit" md-whiteframe="4">
+        <md-toolbar>
+            <h1 class="md-toolbar-tools">{{ vm.editableItem.id ? "Изменить" : "Добавить" }}</h1>
+        </md-toolbar>
+        <md-content layout-padding>
+            <form layout="column" name="vm.formEdit" ng-submit="vm.save()">
+                <md-input-container class="md-block">
+                    <label>ФИО</label>
+                    <input md-maxlength="255" required name="fullName" type="text" ng-model="vm.editableItem.fullName" />
+                    <div ng-messages="formEdit.fullName.$error">
+                        <div ng-message="required">Обязательное поле</div>
+                        <div ng-message="md-maxlength">Максимальная длина 255 символов</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Телефон</label>
+                    <input md-maxlength="255" required name="phone" type="text" ng-model="vm.editableItem.phone" />
+                    <div ng-messages="formEdit.phone.$error">
+                        <div ng-message="required">Обязательное поле</div>
+                        <div ng-message="md-maxlength">Максимальная длина 255 символов</div>
+                    </div>
+                </md-input-container>
+                <input class="md-button md-raised md-primary" ng-disabled="formEdit.$invalid" type="submit" value="Сохранить" />
+                <md-button class="md-raised" ng-click="vm.endEdit()">Отмена</md-button>
+            </form>
+        </md-content>
+    </md-sidenav>
+
+    <md-sidenav class="md-sidenav-right" md-component-id="search" md-whiteframe="4">
+        <md-toolbar>
+            <h1 class="md-toolbar-tools">Найти</h1>
+        </md-toolbar>
+        <md-content layout-padding>
+            <form layout="column" name="vm.formSearch" ng-submit="vm.doSearch()">
+                <md-input-container class="md-block">
+                    <label>ФИО</label>
+                    <input md-maxlength="255" required name="title" type="text" ng-model="vm.query" />
+                    <div ng-messages="formSearch.value.$error">
+                        <div ng-message="required">Обязательное поле</div>
+                        <div ng-message="md-maxlength">Максимальная длина 255 символов</div>
+                    </div>
+                </md-input-container>
+                <input class="md-button md-raised md-primary" ng-disabled="formSearch.$invalid" type="submit" value="Найти" />
+                <md-button class="md-raised" ng-click="vm.endSearch()">Отмена</md-button>
+            </form>
+        </md-content>
+    </md-sidenav>
+
+    <md-card flex>
+        <md-content layout="column">
+            <table-toolbar ng-data-source="vm.dataSource" title="Читательские билеты" on-search="vm.search()" on-create="vm.create()" on-edit="vm.edit($item)"></table-toolbar>
+            <!-- table -->
+            <md-table-container>
+                <table md-table md-row-select ng-model="vm.dataSource.selected" md-progress="vm.dataSource.promise">
+                    <thead md-head>
+                        <tr md-row>
+                            <th md-column><span>#</span></th>
+                            <th md-column><span>ФИО</span></th>
+                            <th md-column><span>Телефон</span></th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row md-select="item" md-select-id="id" ng-repeat="item in vm.dataSource.items">
+                            <td md-cell>{{item.id}}</td>
+                            <td md-cell>{{item.fullName}}</td>
+                            <td md-cell>{{item.phone}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <md-table-pagination md-limit="10" md-page="vm.dataSource.page" md-total="{{vm.dataSource.total}}" md-page-select md-label="{page: 'Страница', of: 'из'}"></md-table-pagination>
+        </md-content>
+    </md-card>
+</div>

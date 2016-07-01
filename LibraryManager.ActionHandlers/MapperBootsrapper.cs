@@ -2,7 +2,7 @@
 using LibraryManager.ActionHandlers.Forms;
 using LibraryManager.Data.Model.Entity;
 using LibraryManager.Shared;
-using LightInject;
+using LibraryManager.Shared.IoC;
 
 namespace LibraryManager.ActionHandlers
 {
@@ -14,9 +14,16 @@ namespace LibraryManager.ActionHandlers
             container.RegisterInstance(mapper);
         }
 
-        private static void ConfigureMapper(IMapperConfiguration cfg)
+        private static void ConfigureMapper(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<CreateBookForm, Book>();
+            cfg.CreateMap<UpdateBookForm, Book>();
+
+            cfg.CreateMap<CreateLibraryCardForm, LibraryCard>();
+            cfg.CreateMap<UpdateLibraryCardForm, LibraryCard>();
+
+            cfg.CreateMap<CreateClientEntryForm, ClientEntry>();
+            cfg.CreateMap<UpdateClientEntryForm, ClientEntry>();
         }
     }
 }

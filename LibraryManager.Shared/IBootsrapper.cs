@@ -1,4 +1,4 @@
-﻿using LightInject;
+﻿using LibraryManager.Shared.IoC;
 
 namespace LibraryManager.Shared
 {
