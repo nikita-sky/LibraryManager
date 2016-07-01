@@ -21,71 +21,43 @@ namespace LibraryManager.ActionHandlers.Common
 
         public virtual QueryResult<T> Get(int page)
         {
-            try
-            {
-                page = Math.Max(1, page);
-                var toSkip = (page - 1) * PageSize;
-                var items = Repository.Query()
-                    .OrderBy(x => x.Id)
-                    .Skip(toSkip)
-                    .Take(PageSize)
-                    .ToArray();
+            page = Math.Max(1, page);
+            var toSkip = (page - 1) * PageSize;
+            var items = Repository.Query()
+                .OrderBy(x => x.Id)
+                .Skip(toSkip)
+                .Take(PageSize)
+                .ToArray();
 
-                return QueryResult<T>.Success(items, Repository.Total());
-            }
-            catch (Exception)
-            {
-                return QueryResult<T>.Failure();
-            }
+            return QueryResult<T>.Success(items, Repository.Total());
         }
 
         public QueryResult<T> Add(T entity)
         {
-            try
+            Repository.Add(entity);
+            return new QueryResult<T>(HandledActionResultCode.Success)
             {
-                Repository.Add(entity);
-                return new QueryResult<T>(HandledActionResultCode.Success)
-                {
-                    Id = entity.Id,
-                    Count = 1,
-                    Total = Repository.Total()
-                };
-            }
-            catch (Exception)
-            {
-                return QueryResult<T>.Failure();
-            }
+                Id = entity.Id,
+                Count = 1,
+                Total = Repository.Total()
+            };
         }
 
         public HandledActionResult Update(T entity)
         {
-            try
-            {
-                Repository.Update(entity);
-                return HandledActionResult.Success;
-            }
-            catch (Exception)
-            {
-                return HandledActionResult.Failure;
-            }
+            Repository.Update(entity);
+            return HandledActionResult.Success;
         }
 
         public QueryResult<int> Delete(int id)
         {
-            try
+            Repository.Delete(id);
+            return new QueryResult<int>(HandledActionResultCode.Success)
             {
-                Repository.Delete(id);
-                return new QueryResult<int>(HandledActionResultCode.Success)
-                {
-                    Id = id,
-                    Count = 1,
-                    Total = Repository.Total()
-                };
-            }
-            catch (Exception)
-            {
-                return QueryResult<int>.Failure();
-            }
+                Id = id,
+                Count = 1,
+                Total = Repository.Total()
+            };
         }
 
         protected TDestination Map<TDestination>(object source)

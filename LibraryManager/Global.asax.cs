@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
@@ -26,6 +27,14 @@ namespace LibraryManager
             container.GetAllInstances<IBootsrapper>().ForEach(b => b.Execute(container));
             RegisterControllers(container);
             container.EnableMvc();
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Server.ClearError();
+
+            Response.Clear();
+            Response.StatusCode = 500;
         }
 
         private static void RegisterControllers(IServiceContainer container)
