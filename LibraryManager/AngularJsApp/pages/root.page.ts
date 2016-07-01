@@ -50,15 +50,6 @@ module LM
             const toast: angular.material.IToastOptions = {
                 hideDelay: 0,
                 template: template,
-                //template: [
-                //    '<md-toast>',
-                //        '<md-progress-circular class="md-warn" md-diameter="40">',
-                //        '</md-progress-circular>',
-                //        '<span class="md-toast-text">',
-                //        message,
-                //        '</span>',
-                //    '</md-toast>'
-                //].join(""),
                 position: "bottom left"
             };
             this._indicator = this.$mdToast.show(toast);
