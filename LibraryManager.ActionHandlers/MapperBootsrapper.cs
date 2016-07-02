@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LibraryManager.ActionHandlers.Forms;
+using LibraryManager.ActionHandlers.ViewModels;
 using LibraryManager.Data.Model.Entity;
 using LibraryManager.Shared;
 using LibraryManager.Shared.IoC;
@@ -24,6 +25,11 @@ namespace LibraryManager.ActionHandlers
 
             cfg.CreateMap<CreateClientEntryForm, ClientEntry>();
             cfg.CreateMap<UpdateClientEntryForm, ClientEntry>();
+
+            cfg.CreateMap<Book, BookViewModel>();
+            cfg.CreateMap<LibraryCard, LibraryCardViewModel>();
+
+            cfg.CreateMap<ClientEntry, ClientEntryVewModel>();
         }
     }
 }
