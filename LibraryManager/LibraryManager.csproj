@@ -85,6 +85,7 @@
     <Content Include="Content\html\components\table.toolbar.html" />
     <Content Include="Content\html\pages\book.html" />
     <Content Include="Content\html\pages\library.card.html" />
+    <Content Include="Content\html\pages\registry.html" />
     <Content Include="Content\html\pages\root.html" />
     <Content Include="Content\js\app.js" />
     <Content Include="Content\js\md-data-table.min.js" />
