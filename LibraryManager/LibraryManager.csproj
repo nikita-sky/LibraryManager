@@ -161,7 +161,6 @@
     <TypeScriptCompile Include="AngularJsApp\data\model\entity.ts" />
     <TypeScriptCompile Include="AngularJsApp\data\model\library.card.ts" />
     <TypeScriptCompile Include="AngularJsApp\data\query.result.ts" />
-    <TypeScriptCompile Include="AngularJsApp\data\query.ts" />
     <TypeScriptCompile Include="AngularJsApp\pages\books.page.ts" />
     <TypeScriptCompile Include="AngularJsApp\pages\page.base.ts" />
     <TypeScriptCompile Include="AngularJsApp\pages\root.page.ts" />
