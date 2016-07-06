@@ -9,6 +9,7 @@ namespace LibraryManager.ActionHandlers.Common
     public class ActionHandler<T> where T: EntityBase
     {
         public const int PageSize = 10;
+        public const int SearchResultCount = 5;
 
         protected IRepository<T> Repository { get; }
         protected IMapper Mapper { get; }

@@ -1,7 +1,10 @@
 ﻿module LM
 {
-    export interface LibraryCard extends Entity {
+    export interface LibraryCardShort extends Entity {
         fullName: string;
+    }
+
+    export interface LibraryCard extends LibraryCardShort {
         phone: string;
     }
 }

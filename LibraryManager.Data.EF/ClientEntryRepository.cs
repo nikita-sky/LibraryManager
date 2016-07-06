@@ -13,10 +13,8 @@ namespace LibraryManager.Data.EF
         public override IQueryable<ClientEntry> Query()
         {
             return DbSet
-                .Include(x => x.Book.Title)
-                .Include(x => x.Book.Id)
-                .Include(x => x.LibraryCard.FullName)
-                .Include(x => x.LibraryCardId);
+                .Include(x => x.Book)
+                .Include(x => x.LibraryCard);
         }
 
         public ClientEntryRepository(LibraryManagerContext context) : base(context)

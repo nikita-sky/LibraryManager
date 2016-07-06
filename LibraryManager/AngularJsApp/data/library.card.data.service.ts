@@ -17,5 +17,11 @@ module LM {
             return this.$http.get(this.url + "/find", config)
                 .then(x => x.data);
         }
+
+        search(query: string): angular.IPromise<LibraryCardShort[]> {
+            const config = this.createRequestConfig({ query: query });
+            return this.$http.get(`${this.url}/search`, config)
+                .then(x => x.data);
+        }
     }
 }

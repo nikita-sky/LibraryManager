@@ -37,5 +37,9 @@ namespace LibraryManager.Areas.Api.Controllers
         [HttpGet]
         public ActionResult Find(string fullName, int page = 1)
             => _actionHandler.Find(fullName, page).ToJsonResult();
+
+        [HttpGet]
+        public ActionResult Search(string query)
+            => Json(_actionHandler.Search(query));
     }
 }

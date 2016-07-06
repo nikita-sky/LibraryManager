@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using LibraryManager.ActionHandlers.Common;
 using LibraryManager.ActionHandlers.Forms;
+using LibraryManager.ActionHandlers.ViewModels;
 using LibraryManager.Data.Model;
 using LibraryManager.Data.Model.Entity;
 
@@ -43,6 +44,24 @@ namespace LibraryManager.ActionHandlers
                 throw new ArgumentNullException(nameof(form));
 
             return Update(Map<LibraryCard>(form));
+        }
+
+        public LibraryCardViewModel[] Search(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+                return new LibraryCardViewModel[0];
+
+            query = query.ToLower();
+            return Repository.Query()
+                .OrderBy(x => x.FullName)
+                .Where(x => x.FullName.ToLower().StartsWith(query))
+                .Take(SearchResultCount)
+                .Select(x => new LibraryCardViewModel
+                {
+                    Id = x.Id,
+                    FullName = x.FullName
+                })
+                .ToArray();
         }
     }
 }

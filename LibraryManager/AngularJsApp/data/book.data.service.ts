@@ -16,7 +16,13 @@ module LM
             const config: angular.IRequestShortcutConfig = {
                 params: { title: title, page: page }
             };
-            return this.$http.get(this.url + "/find", config)
+            return this.$http.get(`${this.url}/find`, config)
+                .then(x => x.data);
+        }
+
+        search(query: string): angular.IPromise<BookShort[]> {
+            const config = this.createRequestConfig( { query: query } );
+            return this.$http.get(`${this.url}/search`, config)
                 .then(x => x.data);
         }
     }

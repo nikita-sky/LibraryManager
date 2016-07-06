@@ -55,6 +55,9 @@
     <Compile Include="Forms\FindClientEntryForm.cs" />
     <Compile Include="LibraryCardActionHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\BookViewModel.cs" />
+    <Compile Include="ViewModels\ClientEntryViewModel.cs" />
+    <Compile Include="ViewModels\LibraryCardViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibraryManager.Data.Model\LibraryManager.Data.Model.csproj">
@@ -66,9 +69,7 @@
       <Name>LibraryManager.Shared</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

@@ -21,7 +21,6 @@ namespace LibraryManager.Areas.Api.Controllers
 
         [HttpPut]
         [ActionName(ACTION_INDEX)]
-        [AcceptVerbs(HttpVerbs.Put)]
         public ActionResult Create(CreateBookForm form)
             => _actionHandler.Create(form).ToJsonResult();
 
@@ -32,12 +31,15 @@ namespace LibraryManager.Areas.Api.Controllers
 
         [HttpDelete]
         [ActionName(ACTION_INDEX)]
-        [AcceptVerbs(HttpVerbs.Delete)]
         public ActionResult Delete(int id)
             => _actionHandler.Delete(id).ToJsonResult();
 
         [HttpGet]
         public ActionResult Find(string title, int page)
             => _actionHandler.Find(title, page).ToJsonResult();
+
+        [HttpGet]
+        public ActionResult Search(string query)
+            => Json(_actionHandler.Search(query));
     }
 }

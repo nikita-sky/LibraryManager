@@ -29,7 +29,7 @@ namespace LibraryManager.ActionHandlers
             cfg.CreateMap<Book, BookViewModel>();
             cfg.CreateMap<LibraryCard, LibraryCardViewModel>();
 
-            cfg.CreateMap<ClientEntry, ClientEntryVewModel>();
+            cfg.CreateMap<ClientEntry, ClientEntryViewModel>();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using LibraryManager.ActionHandlers.Common;
 using LibraryManager.ActionHandlers.Forms;
+using LibraryManager.ActionHandlers.ViewModels;
 using LibraryManager.Data.Model;
 using LibraryManager.Data.Model.Entity;
 
@@ -21,7 +22,7 @@ namespace LibraryManager.ActionHandlers
             _bookRepository = bookRepository;
         }
 
-        public QueryResult<ClientEntry> Find(FindClientEntryForm form)
+        public QueryResult<ClientEntryViewModel> Find(FindClientEntryForm form)
         {
             form.Page = Math.Max(1, form.Page);
 
@@ -52,9 +53,25 @@ namespace LibraryManager.ActionHandlers
             var total = query.LongCount();
             var result = query
                 .Skip((form.Page - 1)*PageSize)
+                .Select(Map<ClientEntryViewModel>)
                 .Take(PageSize).ToArray();
 
-            return QueryResult<ClientEntry>.Success(result, total);
+            return QueryResult<ClientEntryViewModel>.Success(result, total);
+        }
+
+        public new QueryResult<ClientEntryViewModel> Get(int page)
+        {
+            page = Math.Max(1, page);
+
+            var total = Repository.Total();
+            var result = Repository.Query()
+                .OrderBy(x => x.TakedAt)
+                .Skip((page - 1)*PageSize)
+                .Take(PageSize)
+                .Select(Map<ClientEntryViewModel>)
+                .ToArray();
+
+            return QueryResult<ClientEntryViewModel>.Success(result, total);
         }
 
         public QueryResult<ClientEntry> Create(CreateClientEntryForm form)
@@ -62,7 +79,7 @@ namespace LibraryManager.ActionHandlers
             if (form == null)
                 throw new ArgumentNullException(nameof(form));
 
-            if (form.IsInvalid || !ValidateForm(form))
+            if (IsFormInvalid(form))
                 return QueryResult<ClientEntry>.BadRequest();
 
             return Add(Map<ClientEntry>(form));
@@ -73,15 +90,18 @@ namespace LibraryManager.ActionHandlers
             if (form == null)
                 throw new ArgumentNullException(nameof(form));
 
-            if (form.IsInvalid || !ValidateForm(form))
+            if (IsFormInvalid(form))
                 return HandledActionResult.BadRequest;
 
             return Update(Map<ClientEntry>(form));
         }
 
-        private bool ValidateForm(CreateClientEntryForm form)
-            =>
+        private bool IsFormValid(CreateClientEntryForm form)
+            => form.IsValid &&
                 _bookRepository.Query().Any(x => x.Id == form.BookId) &&
                 _librarCardRepository.Query().Any(x => x.Id == form.LibraryCardId);
+
+        private bool IsFormInvalid(CreateClientEntryForm form)
+            => !IsFormValid(form);
     }
 }

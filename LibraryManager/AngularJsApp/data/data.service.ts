@@ -13,10 +13,8 @@ module LM
         }
 
         get(page: number = 1): angular.IPromise<IQueryResult<T>> {
-            const requestConfig: angular.IRequestShortcutConfig = {
-                params: { page: page }
-            };
-            return this.$http.get(this.url, requestConfig)
+            const config = this.createRequestConfig({page: page});
+            return this.$http.get(this.url, config)
                 .then(x => x.data);
         }
 
@@ -25,9 +23,13 @@ module LM
                 .then(x => x.data);
         }
 
-        delete(id: number): angular.IPromise<IQueryResult<T>> {
-            return this.$http.delete(this.url + "/" + id)
-                .then(x => x.data);
+        delete(id: number): angular.IPromise<number> {
+            return this.$http.delete(`${this.url}/${id}`)
+                .then(x => x.status);
         }
+
+        protected createRequestConfig(data: any): angular.IRequestShortcutConfig {
+            return { params: data }
+        };
     }
 }

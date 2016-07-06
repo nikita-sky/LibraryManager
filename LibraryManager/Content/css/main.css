@@ -10,7 +10,7 @@
     padding-left: 40px;
     padding-right: 40px;
     padding-top: 5px;
-    overflow: hidden;
+    background-color: rgb(240, 240, 240);
 }
 
 .full-height {
@@ -19,4 +19,12 @@
 
 md-toolbar {
     transition: none !important;
+}
+
+md-datepicker {
+    margin-right: 0;
+}
+
+.validation-message {
+    color: rgb(221,44,0);
 }

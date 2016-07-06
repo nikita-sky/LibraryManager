@@ -2,7 +2,7 @@
 
 namespace LibraryManager.ActionHandlers.ViewModels
 {
-    public class ClientEntryVewModel
+    public class ClientEntryViewModel
     {
         public int Id { get; set; }
         public DateTime TakedAt { get; set; }

@@ -3,36 +3,62 @@
         <md-toolbar>
             <h1 class="md-toolbar-tools">{{ vm.editableItem.id ? "Изменить" : "Добавить" }}</h1>
         </md-toolbar>
-        <md-content layout-padding>
+        <div layout="column" layout-padding>
             <form layout="column" name="vm.formEdit" ng-submit="vm.save()">
-                <md-input-container class="md-block">
-                    <label>Книга</label>
-                    <md-autocomplete 
-                    <div ng-messages="vm.formEdit.title.$error">
-                        <div ng-message="required">Обязательное поле</div>
-                        <div ng-message="md-maxlength">Максимальная длина 255 символов</div>
+                <md-autocomplete required flex md-input-name="book"
+                                 md-selected-item="vm.editableItem.book"
+                                 md-search-text="bookSearchText"
+                                 md-items="book in vm.searchBook(bookSearchText)"
+                                 md-item-text="book.title"
+                                 md-floating-label="Книга">
+                    <md-item-template>
+                        <span>{{book.title}}</span>
+                    </md-item-template>
+                    <div class="validation-message">
+                        <div ng-show="!bookSearchText">Обязательное поле</div>
+                        <div ng-show="!!bookSearchText && !vm.editableItem.book">Книга не найдена</div>
                     </div>
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <label>Автор</label>
-                    <input md-maxlength="255" required name="author" type="text" ng-model="vm.editableItem.author" />
-                    <div ng-messages="vm.formEdit.author.$error">
-                        <div ng-message="required">Обязательное поле</div>
-                        <div ng-message="md-maxlength">Максимальная длина 255 символов</div>
+                </md-autocomplete>
+
+                <!--<md-input-container class="md-block">-->
+                <md-autocomplete required flex md-input-name="libraryCard"
+                                 md-selected-item="vm.editableItem.libraryCard"
+                                 md-search-text="libraryCardSearchText"
+                                 md-items="card in vm.searchCard(libraryCardSearchText)"
+                                 md-item-text="card.fullName"
+                                 md-floating-label="Читательский билет">
+                    <md-item-template>
+                        <span>{{card.fullName}}</span>
+                    </md-item-template>
+                    <div class="validation-message">
+                        <div ng-show="!libraryCardSearchText">Обязательное поле</div>
+                        <div ng-show="!!libraryCardSearchText && !vm.editableItem.libraryCard">Читатльеский билет не найден</div>
                     </div>
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <label>ISBN</label>
-                    <input ng-pattern="/^(97(8|9))?\d{9}(\d|X)$/" required type="text" name="isbn" ng-model="vm.editableItem.isbn" />
-                    <div ng-messages="vm.formEdit.isbn.$error">
-                        <div ng-message="required">Обязательное поле</div>
-                        <div ng-message="pattern">Указан неправильный номер ISBN</div>
-                    </div>
-                </md-input-container>
-                <input class="md-button md-raised md-primary" ng-disabled="formEdit.$invalid" type="submit" value="Сохранить" />
+                </md-autocomplete>
+                <!--</md-input-container>-->
+
+                <!--<md-input-container class="md-block">-->
+                <md-datepicker required flex name="takedAt" ng-model="vm.editableItem.takedAt" md-placeholder="Выдана"></md-datepicker>
+                <!--<div class="validation-messages" ng-messages="vm.formEdit.takedAt.$error">
+                    <div ng-message="required">Обязательное поле</div>
+                    <div ng-message="valid">Введена неправильная дата</div>
+                </div>-->
+                <!--</md-input-container>-->
+
+                <!--<md-input-container class="md-block">-->
+                <md-datepicker required flex name="returnAt" ng-model="vm.editableItem.returnAt" md-placeholder="Вернуть"></md-datepicker>
+                <!--<div class="validation-messages" ng-messages="vm.formEdit.returnAt.$error">
+                    <div ng-message="required">Обязательное поле</div>
+                    <div ng-message="valid">Введена неправильная дата</div>
+                </div>-->
+                <!--</md-input-container>-->
+
+                <input class="md-button md-raised md-primary"
+                       ng-disabled="vm.formEdit.$invalid || !vm.editableItem.libraryCard || !vm.editableItem.book" 
+                       type="submit" value="Сохранить"/>
                 <md-button class="md-raised" ng-click="vm.endEdit()">Отмена</md-button>
             </form>
-        </md-content>
+        </div>
     </md-sidenav>
 
     <md-sidenav class="md-sidenav-right" md-component-id="search" md-whiteframe="4">
@@ -41,15 +67,31 @@
         </md-toolbar>
         <md-content layout-padding>
             <form layout="column" name="vm.formSearch" ng-submit="vm.doSearch()">
-                <md-input-container class="md-block">
-                    <label>Название</label>
-                    <input md-maxlength="255" required name="value" type="text" ng-model="vm.query" />
-                    <div ng-messages="vm.formSearch.value.$error">
-                        <div ng-message="required">Обязательное поле</div>
-                        <div ng-message="md-maxlength">Максимальная длина 255 символов</div>
+                <md-autocomplete flex md-search-text="vm.query.book"
+                                 md-items="book in vm.searchBook(vm.query.book)"
+                                 md-item-text="book.title"
+                                 placeholder="Книга">
+                </md-autocomplete>
+
+                <md-autocomplete flex md-search-text="vm.query.clientFullName"
+                                 md-items="card in vm.searchCard(vm.query.clientFullName)"
+                                 md-item-text="card.fullName"
+                                 placeholder="Читательский билет">
+                </md-autocomplete>
+
+                <md-datepicker flex name="takedAt" ng-model="vm.query.takedAt" md-placeholder="Дата выдачи книги">
+                    <div ng-messages="vm.formSearch.takedAt.$error">
+                        <div ng-message="valid">Введена неправильная дата</div>
                     </div>
-                </md-input-container>
-                <input class="md-button md-raised md-primary" ng-disabled="formSearch.$invalid" type="submit" value="Найти" />
+                </md-datepicker>
+
+                <md-datepicker flex name="returnAt" ng-model="vm.query.returnAt" md-placeholder="Дата вовращения книги">
+                    <div ng-messages="vm.formSearch.returnAt.$error">
+                        <div ng-message="valid">Введена неправильная дата</div>
+                    </div>
+                </md-datepicker>
+
+                <input class="md-button md-raised md-primary" ng-disabled="formSearch.$invalid" type="submit" value="Найти"/>
                 <md-button class="md-raised" ng-click="vm.endSearch()">Отмена</md-button>
             </form>
         </md-content>
@@ -57,7 +99,7 @@
 
     <md-card flex>
         <md-content layout="column">
-            <table-toolbar ng-data-source="vm.dataSource" title="Книги"
+            <table-toolbar ng-data-source="vm.dataSource" title="Реестр"
                            on-search="vm.search()"
                            on-create="vm.create()"
                            on-edit="vm.edit($item)"
@@ -66,20 +108,27 @@
             <md-table-container>
                 <table md-table md-row-select ng-model="vm.dataSource.selected" md-progress="vm.dataSource.promise">
                     <thead md-head>
-                        <tr md-row>
-                            <th md-column><span>#</span></th>
-                            <th md-column><span>Название</span></th>
-                            <th md-column><span>Автор</span></th>
-                            <th md-column><span>ISBN</span></th>
-                        </tr>
+                    <tr md-row>
+                        <th md-column>
+                            <span>#</span></th>
+                        <th md-column>
+                            <span>Книга</span></th>
+                        <th md-column>
+                            <span>Читательский билет</span></th>
+                        <th md-column>
+                            <span>Выдана</span></th>
+                        <th md-column>
+                            <span>Вернуть</span></th>
+                    </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row md-select="item" md-auto-select md-select-id="id" ng-repeat="item in vm.dataSource.items track by item.id">
-                            <td md-cell>{{::item.id}}</td>
-                            <td md-cell>{{item.title}}</td>
-                            <td md-cell>{{item.author}}</td>
-                            <td md-cell>{{item.isbn}}</td>
-                        </tr>
+                    <tr md-row md-select="item" md-auto-select md-select-id="id" ng-repeat="item in vm.dataSource.items track by item.id">
+                        <td md-cell>{{::item.id}}</td>
+                        <td md-cell>{{item.book.title}}</td>
+                        <td md-cell>{{item.libraryCard.fullName}}</td>
+                        <td md-cell>{{item.takedAt | date : 'dd.MM.yyyy'}}</td>
+                        <td md-cell>{{item.returnAt | date : 'dd.MM.yyyy'}}</td>
+                    </tr>
                     </tbody>
                 </table>
             </md-table-container>
