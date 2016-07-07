@@ -66,6 +66,12 @@ module LM {
 
         resetQuery() { this.query = null; }
 
+        get selectedItem(): TData {
+            return this.selected.length
+                ? this.selected[0]
+                : null;
+        }
+
         protected abstract doQuery(query: TQuery, page: number): angular.IPromise<IQueryResult<TData>>;
 
         private removeItem(item: TData) {
@@ -82,19 +88,27 @@ module LM {
             if (!this.items.length)
                 this.selected.length = 0;
 
-            if (!this.selected.length)
+            if (!this.selectedItem)
                 return;
 
-            var selectedItem = this.selected[0];
-            for (var i = 0; i < this.items.length; i++ ) {
+            var source = this.firstOrDefault(x => x.id === this.selectedItem.id);
+            if (!source) {
+                this.selected.length = 0;
+                return;
+            }
+
+            angular.extend(this.selectedItem, source);
+            //this.items = queryResult.items;
+        }
+
+        private firstOrDefault(whereFunc: (item: TData) => boolean) {
+            for (var i = 0; i < this.items.length; i++) {
                 var item = this.items[i];
-                if (item.id !== selectedItem.id)
+                if (!whereFunc(item))
                     continue;
 
-                angular.extend(selectedItem, item);
-                break;
+                return item;
             }
-            //this.items = queryResult.items;
         }
     }
 }
